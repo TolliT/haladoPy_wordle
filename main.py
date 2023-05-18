@@ -19,10 +19,10 @@ target_word = random.choice(words)
 WORD_LENGTH = len(target_word)
 guessed_word = ['_'] * WORD_LENGTH
 
-# Debug
+# Debug info
 print(target_word)
 
-# TK INIT #
+# TKINTER INIT #
 window = Tk()
 window.title("HaladoPY")
 window.geometry("250x150")
@@ -44,15 +44,18 @@ def check_guess():
     guess = entry.get().lower()
     entry.delete(0, END)
 
+    # TOO SHORT GUESS #
     if len(guess) != WORD_LENGTH:
         messagebox.showinfo("Invalid Guess", f"Please enter a {WORD_LENGTH}-letter word.")
         return
 
+    # CORRECT GUESS #
     if guess == target_word:
         messagebox.showinfo("Congratulations", "You guessed the word correctly!")
         window.quit()
         return
 
+    # CORRECT CHAR CHECK#
     for i in range(WORD_LENGTH):
         if guess[i] == target_word[i]:
             guessed_word[i] = guess[i]
@@ -62,6 +65,7 @@ def check_guess():
     NUM_GUESSES -= 1
     guess_label.config(text=f"Guesses Remaining: {NUM_GUESSES}")
 
+    # OUT OF GUESSES #
     if NUM_GUESSES == 0:
         messagebox.showinfo("Game Over", f"You ran out of guesses. The word was {target_word}.")
         window.quit()
